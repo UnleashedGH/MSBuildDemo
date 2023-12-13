@@ -36,18 +36,11 @@
 
   <Target Name="CompletePublish" DependsOnTargets="Clean;CommitAndPush;BuildProj;ZipAndArchive">
     <PropertyGroup>
-      <ftpHost>ftp.yourwebsiteurl.com</ftpHost>
-      <ftpUser>YourFtpUsername</ftpUser>
-      <ftpPass>YourFtpPassword</ftpPass>
+      <ftpscriptpath>$(MSBuildProjectDirectory)\ftpcommands.txt</ftpscriptpath>
+
     </PropertyGroup>
-    <FtpUploadDirectoryContent
-ServerHost="$(ftpHost)"
-    Port="41"
-    Username="$(ftpUser)"
-    Password="$(ftpPass)"
-    LocalDirectory="$(OutputPath)"
-    RemoteDirectory=""
-    Recursive="true"
-        />
+    <Exec Command="ftp -s:'$(ftpscriptpath)'" />
+
+
   </Target>
 </Project>
