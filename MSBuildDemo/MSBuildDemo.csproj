@@ -8,7 +8,8 @@
   </PropertyGroup>
   
   
-  <Target Name="ZipFolder" >
+  <Target Name="ZipFolder" AfterTargets="Build">
+    
     <ZipDirectory
         SourceDirectory="$(OutputPath)"
         DestinationFile="$(MSBuildProjectDirectory)\output.zip" />
@@ -18,5 +19,12 @@
     <MSBuild Projects="$(ProjectFile)" Properties="Configuration=Release;OutputPath=$(Build);OutDir=$(Build)/"></MSBuild>
     <Exec Command="MSBuildDemo.exe  $(Build)\_PublishedWebsites\$(ProjectName) $(CopyTo) /e /is
       if %errorlevel% leq 4 exit 0 else exit %errorlevel%"/>
+  </Target>
+
+
+  <Target Name="CommitAndPush">
+    <Exec Command="git add -A" />
+    <Exec Command="git commit -m &quot;Automated build commit&quot;" />
+    <Exec Command="git push" />
   </Target>
 </Project>
