@@ -8,17 +8,15 @@
   </PropertyGroup>
   
   
-  <Target Name="ZipFolder">
+  <Target Name="ZipAndArchive">
     
     <ZipDirectory
         SourceDirectory="$(OutputPath)"
         DestinationFile="$(MSBuildProjectDirectory)\output.zip" />
   </Target>
 
-  <Target Name="Publish">
+  <Target Name="BuildProj">
     <MSBuild Projects="$(ProjectFile)" Properties="Configuration=Release;OutputPath=$(Build);OutDir=$(Build)/"></MSBuild>
-    <Exec Command="MSBuildDemo.exe  $(Build)\_PublishedWebsites\$(ProjectName) $(CopyTo) /e /is
-      if %errorlevel% leq 4 exit 0 else exit %errorlevel%"/>
   </Target>
 
   
@@ -34,5 +32,22 @@
     <Exec Command="git add --all" />
     <Exec Command="git commit -m &quot;Automated build commit&quot;" />
     <Exec Command="git push" />
+  </Target>
+
+  <Target Name="CompletePublish" DependsOnTargets="Clean;CommitAndPush;BuildProj;ZipAndArchive">
+    <PropertyGroup>
+      <ftpHost>ftp.yourwebsiteurl.com</ftpHost>
+      <ftpUser>YourFtpUsername</ftpUser>
+      <ftpPass>YourFtpPassword</ftpPass>
+    </PropertyGroup>
+    <FtpUploadDirectoryContent
+ServerHost="$(ftpHost)"
+    Port="41"
+    Username="$(ftpUser)"
+    Password="$(ftpPass)"
+    LocalDirectory="$(OutputPath)"
+    RemoteDirectory=""
+    Recursive="true"
+        />
   </Target>
 </Project>
