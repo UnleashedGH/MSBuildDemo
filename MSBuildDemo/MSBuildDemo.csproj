@@ -8,7 +8,7 @@
   </PropertyGroup>
   
   
-  <Target Name="ZipFolder" AfterTargets="Build">
+  <Target Name="ZipFolder">
     
     <ZipDirectory
         SourceDirectory="$(OutputPath)"
@@ -21,7 +21,15 @@
       if %errorlevel% leq 4 exit 0 else exit %errorlevel%"/>
   </Target>
 
-
+  
+  <Target Name="Clean">
+    <!-- Remove obj folder -->
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+    <!-- Remove bin folder -->
+    <RemoveDir Directories="$(BaseOutputPath)" />
+  </Target>
+  
+  
   <Target Name="CommitAndPush">
     <Exec Command="git add --all" />
     <Exec Command="git commit -m &quot;Automated build commit&quot;" />
