@@ -23,7 +23,7 @@
 
 
   <Target Name="CommitAndPush">
-    <Exec Command="git add -A" />
+    <Exec Command="git add --all" />
     <Exec Command="git commit -m &quot;Automated build commit&quot;" />
     <Exec Command="git push" />
   </Target>
