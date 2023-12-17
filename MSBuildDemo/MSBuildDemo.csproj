@@ -5,6 +5,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <CurrentDate>$([System.DateTime]::Now.ToString(yyyy.MM.dd))</CurrentDate>
   </PropertyGroup>
   
   
@@ -17,7 +18,7 @@
 
   <ZipDirectory
     SourceDirectory="$(OutputPath)"
-    DestinationFile="$(MSBuildProjectDirectory)\zip_publish\output.zip" />
+    DestinationFile="$(MSBuildProjectDirectory)\zip_publish\output_$(CurrentDate).zip" />
 </Target>
 
   <Target Name="BuildProj">
