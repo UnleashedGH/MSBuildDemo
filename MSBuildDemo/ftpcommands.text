@@ -1,4 +1,0 @@
-open YourFtpServer.com
- user YourUserName YourPassword
- put localfilename remotefilename
- bye
