@@ -9,10 +9,13 @@
   
   
   <Target Name="ZipAndArchive">
-    
+
     <ZipDirectory
+      
         SourceDirectory="$(OutputPath)"
         DestinationFile="$(MSBuildProjectDirectory)\output.zip" />
+  
+   <Exec Command="if exist output.zip del output.zip" />
   </Target>
 
   <Target Name="BuildProj">
