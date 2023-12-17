@@ -8,15 +8,17 @@
   </PropertyGroup>
   
   
-  <Target Name="ZipAndArchive">
-     <RemoveDir Directories="$(MSBuildProjectDirectory)\zip_publish" />
-    <ZipDirectory
-      
-        SourceDirectory="$(OutputPath)"
-        DestinationFile="$(MSBuildProjectDirectory)\zip_publish\output.zip" />
-  
- 
-  </Target>
+ <Target Name="ZipAndArchive">
+
+  <MakeDir Directories="$(MSBuildProjectDirectory)\zip_publish" />
+  <RemoveDir Directories="$(MSBuildProjectDirectory)\zip_publish" />
+  <MakeDir Directories="$(MSBuildProjectDirectory)\zip_publish" />
+
+
+  <ZipDirectory
+    SourceDirectory="$(OutputPath)"
+    DestinationFile="$(MSBuildProjectDirectory)\zip_publish\output.zip" />
+</Target>
 
   <Target Name="BuildProj">
     <MSBuild Projects="$(ProjectFile)" Properties="Configuration=Release;OutputPath=$(Build);OutDir=$(Build)/"></MSBuild>
