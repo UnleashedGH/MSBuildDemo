@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -28,11 +28,18 @@
   </Target>
   
   
-  <Target Name="CommitAndPush">
-    <Exec Command="git add --all" />
-    <Exec Command="git commit -m &quot;Automated build commit&quot;" />
-    <Exec Command="git push" />
-  </Target>
+ <Target Name="CommitAndPush">
+  <Exec Command="git add --all" />
+  <Exec Command="git status" />
+
+  <!-- Use double quotes around the commit message -->
+  <Exec Command="git commit -m &quot;Automated build commit&quot;" />
+
+  <!-- Check the output of the commit to debug -->
+  <Exec Command="git log -1" />
+
+  <Exec Command="git push" />
+</Target>
 
   <Target Name="CompletePublish" DependsOnTargets="Clean;CommitAndPush;BuildProj;ZipAndArchive">
     <PropertyGroup>
