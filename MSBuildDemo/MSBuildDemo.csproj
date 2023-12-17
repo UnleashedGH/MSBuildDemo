@@ -9,11 +9,11 @@
   
   
   <Target Name="ZipAndArchive">
-  <Exec Command="if exist output.zip del output.zip" />
+     <RemoveDir Directories="$(MSBuildProjectDirectory)\zip_publish" />
     <ZipDirectory
       
         SourceDirectory="$(OutputPath)"
-        DestinationFile="$(MSBuildProjectDirectory)\output.zip" />
+        DestinationFile="$(MSBuildProjectDirectory)\zip_publish\output.zip" />
   
  
   </Target>
